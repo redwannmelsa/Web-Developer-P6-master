@@ -1,6 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
+
 const userRoutes = require('./routes/users');
+const saucesRoutes = require('./routes/sauces')
 
 // connexion to MongoDB server
 mongoose.connect('mongodb+srv://redwannmelsa:jzfyRkuVEi2AcAIW@cluster0.ihhzf.mongodb.net/Cluster0?retryWrites=true&w=majority',
@@ -18,7 +22,11 @@ app.use((req, res, next) => {
     next();
   });
 
+app.use(bodyParser.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', saucesRoutes);
 
 module.exports = app;
