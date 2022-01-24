@@ -1,12 +1,16 @@
+//imports
 const express = require('express');
 const router = express.Router();
 
+//imports middlewares
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config')
 
+//imports controllers
 const saucesCtrl = require('../controllers/sauces')
 
-router.post('/',auth, multer, saucesCtrl.addNewSauce);
+//routes
+router.post('/',auth, multer, saucesCtrl.addNewSauce); 
 router.get('/', saucesCtrl.displaySauces);
 router.get('/:id', saucesCtrl.displayOne);
 router.put('/:id', auth, multer, saucesCtrl.modifySauce);
